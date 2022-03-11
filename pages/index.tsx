@@ -13,15 +13,20 @@ const Home: NextPage = () => {
 
   const [web3, setWeb3] = useState<Web3 | undefined>(undefined)
   const [address, setAddress] = useState<string | undefined>(undefined)
+  const [balance, setBalance] = useState<string | undefined>('')
 
   useEffect(() => {
 
     const initWeb3 = async () => {
       try {
-        window.ethereum.request({ method: "eth_requestAccounts" }).then((accounts) => {
+        window.ethereum.request({ method: "eth_requestAccounts" }).then(async (accounts : Array<string>) => {
           setAddress(accounts[0])
-          let w3 = new Web3(ethereum)
+          let w3 = new Web3(window.ethereum)
           setWeb3(w3)
+
+          // get balance
+          let balance = await web3?.eth.getBalance(address || '')
+          setBalance(balance);
         })
       } catch (error) {
         console.error(error)
@@ -55,6 +60,9 @@ const Home: NextPage = () => {
                 <p className={styles.description}>
                   Your wallet's address is
                   <code className={styles.code}>{address}</code>
+                </p>
+                <p className={styles.description}>
+                  with {web3.utils.fromWei(balance || '')} eth.
                 </p>
               </>
             )
