@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react'
 import Web3 from 'web3'
 import styles from '../styles/Home.module.css'
 
+declare global {
+  interface Window { ethereum: any; }
+}
+
 const Home: NextPage = () => {
 
   const [web3, setWeb3] = useState(null)
