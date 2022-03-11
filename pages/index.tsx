@@ -24,12 +24,12 @@ const Home: NextPage = () => {
       }
     }
 
-    if(window.ethereum) {
+    if (window.ethereum) {
       initWeb3()
     }
 
   }, [])
-  
+
 
 
   return (
@@ -44,9 +44,15 @@ const Home: NextPage = () => {
         {
           web3 ?
             (
-              <h1 className={styles.title}>
-                Ethereum Ready!
-              </h1>
+              <>
+                <h1 className={styles.title}>
+                  Ethereum Ready!
+                </h1>
+                <p className={styles.description}>
+                  Your wallet's address is
+                  <code className={styles.code}>{address}</code>
+                </p>
+              </>
             )
             : (
               <h1 className={styles.title}>
@@ -54,12 +60,9 @@ const Home: NextPage = () => {
               </h1>
             )
         }
-       
 
-        {/* <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
+
+        {/* 
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
