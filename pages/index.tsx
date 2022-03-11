@@ -17,25 +17,20 @@ const Home: NextPage = () => {
 
   useEffect(() => {
 
-    const initWeb3 = async () => {
-      try {
-        window.ethereum.request({ method: "eth_requestAccounts" }).then(async (accounts : Array<string>) => {
-          setAddress(accounts[0])
-          let w3 = new Web3(window.ethereum)
-          setWeb3(w3)
-
-          // get balance
-          let balance = await web3?.eth.getBalance(address || '')
-          setBalance(balance);
-        })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
     if (window.ethereum) {
-      initWeb3()
+      window.ethereum.request({ method: "eth_requestAccounts" }).then(async (accounts: Array<string>) => {
+        setAddress(accounts[0])
+        let w3 = new Web3(window.ethereum)
+        setWeb3(w3)
+
+        // get balance
+        w3?.eth.getBalance(accounts[0] || '').then((value: string) => {
+          setBalance(value);
+        });
+
+      })
     }
+
 
   }, [])
 
