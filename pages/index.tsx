@@ -11,8 +11,8 @@ declare global {
 
 const Home: NextPage = () => {
 
-  const [web3, setWeb3] = useState(null)
-  const [address, setAddress] = useState(null)
+  const [web3, setWeb3] = useState<Web3 | undefined>(undefined)
+  const [address, setAddress] = useState<string | undefined>(undefined)
 
   useEffect(() => {
 
